@@ -1,110 +1,77 @@
-# curl Comparator & curl Diff — Compare Two curl Commands Online (HTTP Request Diff)
+# 🔀 curl Comparator — Compare Two curl Commands Online (curl diff)
 
-**Free browser-based curl comparator and curl comparison tool.** Paste **two curl commands** side by side and see a **structured diff** of **HTTP method**, **URL** (base + **query parameters**), **headers**, **auth**, **cookies**, **body**, and common **flags**—plus a **Monaco** side-by-side diff and a **raw line diff** when parsing is partial or you need the full command text. Same **curl parser** as Spoold’s **curl → code** converter. **Nothing is uploaded**; comparison runs **client-side**.
+[![Open tool](https://img.shields.io/badge/Open-curl%20compare-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white)](https://spoold.com/tools/http/curl/compare)
+[![Site](https://img.shields.io/badge/spoold.com-live-22c55e?style=flat-square&logo=googlechrome&logoColor=white)](https://spoold.com/tools/http/curl/compare)
+![Client-side](https://img.shields.io/badge/processing-client--side-0ea5e9?style=flat-square&logo=javascript&logoColor=white)
+![No sign-up](https://img.shields.io/badge/sign--up-not%20required-64748b?style=flat-square)
+[![Source](https://img.shields.io/badge/code-open%20source-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/thespoold/spoold)
 
-**Live tool:** [spoold.com/tools/http/curl/compare](https://spoold.com/tools/http/curl/compare)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Monaco](https://img.shields.io/badge/Monaco-DiffEditor-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white)](https://microsoft.github.io/monaco-editor/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)]()
 
----
-
-## Table of contents
-
-- [What this tool is for](#what-this-tool-is-for)
-- [Who searches for this (keywords)](#who-searches-for-this-keywords)
-- [Features](#features)
-- [How to use](#how-to-use)
-- [Local storage & history](#local-storage--history)
-- [Parser & limits](#parser--limits)
-- [Related tools](#related-tools)
-- [Tech stack & privacy](#tech-stack--privacy)
-- [Repository](#repository)
+**Free [curl comparator](https://spoold.com/tools/http/curl/compare)** and **curl comparison tool**: paste **two curl commands** and get a **structured diff** (HTTP method, URL + query, headers, auth, cookies, body, flags), a **Monaco** side-by-side diff, and a **raw line diff** if parsing is partial. Same **curl parser** as **[curl → code](https://spoold.com/tools/http/curl)**. Runs **client-side** in your browser — no upload for the core compare.
 
 ---
 
-## What this tool is for
+## 🔎 What people search for
 
-Use this **online curl diff** when you need to:
-
-- **Compare curl commands** from docs vs DevTools, **staging vs production**, or two API versions without eyeballing long one-liners.
-- **Spot differences** in **Authorization**, **query strings**, **headers**, **JSON bodies** (pretty-printed line diff when both bodies parse as JSON), and **curl flags** (`-L`, `-k`, `--compressed`, etc.).
-- **Debug HTTP requests** as text: see **what changed** in both **structured tables** and a **full raw diff**.
-- **Iterate quickly** with **swap**, **samples**, **clear**, and optional **document history** in the app.
-
-It is part of **[Spoold](https://spoold.com)** — developer utilities in the browser.
+**curl comparator**, **curl comparison tool**, **curl command comparator**, **curl compare**, **curl compare online**, **compare curl commands**, **curl diff**, **diff curl requests**, **two curl commands**, **side by side curl**, **http request compare**, **compare http requests**, **curl request diff**, **api request diff**.
 
 ---
 
-## Who searches for this (keywords)
+## ✨ What it does
 
-This README and the live page target searches such as:
-
-**Core intent:** `curl comparator`, `curl comparison tool`, `curl command comparator`, `curl compare`, `curl compare online`, `compare curl commands`, `curl diff`, `diff curl requests`, `two curl commands`, `side by side curl`
-
-**HTTP / API:** `http request compare`, `compare http requests`, `curl request diff`, `api request diff`, `diff curl`, `compare curl`
-
----
-
-## Features
-
-| Area | What you get |
-|------|----------------|
-| **Dual editor** | Monaco **DiffEditor** (shell) for **curl A** vs **curl B**; edit and paste on both sides. |
-| **Structured comparison** | When both sides parse: **method**, **URL** split into **base** and **query** (when the URL is valid), **headers** (union of keys), **body** diff (JSON-pretty when possible), **auth**, **cookies**, **follow / insecure / compressed** flags. |
-| **Single curl mode** | If only one pane has a valid curl, a **summary** still shows parsed fields; add a second command to diff. |
-| **Raw diff** | **Line-based diff** of the full command text—useful for odd flags or when structured parsing is incomplete. |
-| **Shared parser** | Same **`parseCurl`** pipeline as **[curl → code](https://spoold.com/tools/http/curl)** for consistent behavior. |
-| **Samples & swap** | **Both samples** loads example curls; **Swap** exchanges A/B; **Clear A/B** resets panes. |
-| **History** | **History** panel for recent documents (IndexedDB-backed flow consistent with other Spoold tools). |
-| **Handoff** | Compatible with Spoold **Magic Box** / `#data=` style landing so the left command can be **pre-filled** from detection (see in-app guide). |
+- 🖥️ **Dual editor** — Monaco DiffEditor for curl **A** vs **B** (edit/paste both sides).
+- 📊 **Structured diff** — Method, URL (base + query), headers, body (JSON-pretty when possible), auth, cookies, common flags.
+- 📜 **Raw diff** — Full command text when you need every flag or the parser skipped something.
+- 🔗 **One parser** — Same `parseCurl` pipeline as the [curl → code](https://spoold.com/tools/http/curl) tool.
+- 🔁 **Samples & swap** — Example curls, swap A/B, clear panes.
+- 🕐 **History** — Recent docs via IndexedDB (on your device).
+- ✨ **Magic Box / `#data=`** — Left pane can be pre-filled from Spoold detection (see in-app guide).
 
 ---
 
-## How to use
+## 👣 Quick start
 
-1. Open **[curl compare](https://spoold.com/tools/http/curl/compare)**.
-2. Paste **curl A** (original) and **curl B** (modified) into the diff editor, or try **Both samples**.
-3. Read **Structured comparison** for method, URL, query, headers, body, auth, and cookies.
-4. Use the **raw** section when you need **full-command** differences or the parser skipped a niche flag.
-5. Optionally open **History** to reload recent work.
-
----
-
-## Local storage & history
-
-The UI may persist editor content using **local stash keys** such as `spoold-curl-compare-a` and `spoold-curl-compare-b` (session continuity in the browser). **History** uses Spoold’s **document storage** (e.g. IndexedDB) so you can return to recent comparisons—still **on your device**, not sent to Spoold as “curl comparison as a service.”
+1. Open **https://spoold.com/tools/http/curl/compare**
+2. Paste curl **A** and **B**, or use **Both samples**.
+3. Read **Structured comparison**; use **raw** for full-line differences.
+4. Optional: **History** for recent work.
 
 ---
 
-## Parser & limits
+## 🔒 Privacy & limits
 
-- Covers **common curl flags** used in typical API calls (`-X`, `-H`, `-d`, `-u`, `-b`, `-L`, `-k`, `--compressed`, and more—see the in-page **Guide** for nuance).
-- **Does not** execute requests or validate against a live server—this is a **text and structural** diff only.
-- If one or both commands **fail to parse**, you still get **parse errors** per side (when applicable) and the **raw line diff** of the full strings.
+- 🔐 **Local-first:** diff runs in the browser; core flow does not send your curls to a server.
+- ⛔ **No HTTP execution** — this tool only compares text; it does not run requests against APIs.
+- ⚠️ **Secrets:** redact tokens before sharing screens or links.
+- 📋 **Parser:** supports common curl flags (`-X`, `-H`, `-d`, `-u`, `-b`, `-L`, `-k`, `--compressed`, …). Rare flags may only appear in the raw diff.
 
----
-
-## Related tools
-
-- **[curl → code](https://spoold.com/tools/http/curl)** — Convert a **single** curl to fetch, Axios, Python, etc.
-- **[Text Diff](https://spoold.com/tools/text/diff)** — Generic two-text compare.
-- **[URL inspect](https://spoold.com/tools/url/inspect)** — Break down URLs and parameters.
+**Local stash keys:** `spoold-curl-compare-a`, `spoold-curl-compare-b`. History uses browser storage (e.g. IndexedDB).
 
 ---
 
-## Tech stack & privacy
+## 🔗 Related Spoold tools
 
-- Built with **Next.js** (React) and **Monaco Editor** (`DiffEditor`).
-- Uses **`diff`** for line diffs and shared **curl parsing** utilities under `src/lib/`.
-- **No server-side curl execution** in this tool: your commands stay in the **browser** unless you choose a separate Spoold share/cloud flow that applies to other tools.
-
----
-
-## Repository
-
-Spoold : **[github.com/thespoold/spoold](https://github.com/thespoold/spoold)** — clone, `pnpm install`, `pnpm dev`, then open `/tools/http/curl/compare`.
+| Tool | URL |
+|------|-----|
+| curl → code | https://spoold.com/tools/http/curl |
+| Text diff | https://spoold.com/tools/text/diff |
+| URL inspect | https://spoold.com/tools/url/inspect |
 
 ---
 
-<p align="center">
-  <strong>Spoold</strong> — <em>Paste. Detect. Do.</em><br/>
-  <a href="https://spoold.com">spoold.com</a>
-</p>
+## 🛠️ Run from source
+
+```bash
+git clone https://github.com/thespoold/spoold.git
+cd spoold && pnpm install && pnpm dev
+```
+
+Open `/tools/http/curl/compare` locally.
+
+---
+
+**Spoold** — *Paste. Detect. Do.* · [spoold.com](https://spoold.com) · [github.com/thespoold/spoold](https://github.com/thespoold/spoold)
